@@ -1,0 +1,27 @@
+vi app.yml
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name:  webapp
+  namespace: dev    
+  labels:
+    app: be
+spec:
+  strategy:
+   rollingUpdates
+  replicas: 5     
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      name: webapp
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: webappc
+        image: sasgeeks/maven-web-app
+        ports:
+      - containerPort: 8080
