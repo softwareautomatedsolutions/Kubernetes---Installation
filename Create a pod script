@@ -1,0 +1,14 @@
+kind: Pod
+apiVersion: v1
+metadata:
+   name: webapp
+   labels:
+     app: web
+     tier: fe
+   namespace: dev
+spec:
+   containers:
+   - name: web
+     image: sasgeeks/shoppingcart
+     ports:
+     - containerPort: 80
