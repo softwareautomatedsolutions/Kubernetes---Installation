@@ -1,0 +1,36 @@
+kind: ReplicationController
+apiVersion: v1
+metadata:  
+   name: apprc
+   namespace: dev
+   labels:
+      app: apprc
+spec:
+   selector:
+      app: web  
+   replicas: 3    
+   template:  #podTemplate
+      metadata:
+         name: webapp
+         labels:
+           app: web    
+      spec:
+         containers:
+         - name: app
+           image: sasgeeks/java-web-app
+           ports:
+           - containerPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: webappsvc
+spec:
+   type: NodePort
+   selector:
+      app: web    
+   ports:
+   - port: 80
+     targetPort: 8080
+     nodePort: 31000 #30000-32676
+
